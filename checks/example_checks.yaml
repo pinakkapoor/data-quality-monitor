@@ -1,0 +1,30 @@
+tables:
+  - name: orders
+    checks:
+      - type: null_rate
+        column: order_id
+        max_null_pct: 0
+      - type: null_rate
+        column: customer_email
+        max_null_pct: 5
+      - type: unique
+        column: order_id
+      - type: value_range
+        column: total_amount
+        min: 0
+        max: 100000
+      - type: row_count
+        min: 100
+      - type: freshness
+        column: created_at
+        max_hours: 24
+
+  - name: customers
+    checks:
+      - type: null_rate
+        column: email
+        max_null_pct: 0
+      - type: unique
+        column: email
+      - type: row_count
+        min: 50
